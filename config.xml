@@ -5,6 +5,8 @@
   <author email="som@som.com.ar" href="http://som.com.ar">Club de Inmobiliarias S.A.</author>
   <preference name="orientation" value="portrait" />
   <preference name="target-device" value="universal" />
+  <preference name="SplashScreenDelay" value="2000"/>
+  <preference name="SplashScreen" value="splash" />
   <preference name="permissions" value="none" />
   <preference name="fullscreen" value="false" />
   <allow-intent name="href" value="http://*/*"></allow-intent>

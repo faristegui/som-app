@@ -9,19 +9,18 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/md5.js"></script>
       <meta charset="UTF-8">
       <script type="text/javascript">
+
+          if(localStorage.getItem("token") !== "" && localStorage.getItem("inmo") !== "")
+          {
+            window.location.href = "busqueda.html?token=" + localStorage.getItem("token") + "&inmobiliaria=" + localStorage.getItem("inmo");
+          }
+
         function iniciarSesion()
         {
-          //var user = $('#usuario').val();
-
-          //var pass = $('#password').val();
 
           var token = $('#token').val();
 
-          //pass = CryptoJS.MD5(String(pass));
-
           var request = new XMLHttpRequest();
-
-          //var url = 'http://sgi.som.com.ar/api/login.php?usuario=' + user + '&clave=' + pass;
 
           url = 'http://sgi.som.com.ar/api/login.php?token=' + token;
 
@@ -36,6 +35,8 @@
                 if(login.Status)
                 {
                   window.location.href = "busqueda.html?token=" + login.TokenMovil + "&inmobiliaria=" + login.CodigoInmobiliaria + login.CodigoSucursal;
+                  localStorage.setItem("token",login.TokenMovil);
+                  localStorage.setItem("inmo",login.CodigoInmobiliaria + login.CodigoSucursal);
                 }
                 else
                 {

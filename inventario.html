@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SOM - Servicio de Ofertas Múltiples</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="js/scripts.js"></script>
+  <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/jquery-ui.js"></script>
+  <meta charset="UTF-8">
+  <script>
+    token = obtenerParametros('token');
+    inicializar();
+  </script>
+</head>
+
+<body class="fondo" onload="inicializarEditorImagenes();cargarInventario();">
+
+  <div class="row" style="margin-bottom: 60px">
+
+  <div class="navbar-fixed">
+    <nav class="green">
+      <div class="nav-wrapper">
+        <b style="font-size: 23px; margin-left: 15px;">SOM</b>
+        <ul class="right">
+          <li><a href="javascript:verBusqueda()"><i class="material-icons barra">search</i></a></li>
+          <li><a href="javascript:verInventario()"><i class="material-icons barra">home</i></a></li>
+          <li></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+    <div class="col s12 white appbar superior">
+      <ul class="tabs tabs-transparent">
+    	<li class="tab col s4"><a href="#inventario" class="active"><i class="material-icons top">home</i></a></li>
+        <li class="tab col s4"><a href="#editar"><i class="material-icons top">edit</i></a></li>
+        <li class="tab col s4"><a href="#archivos"><i class="material-icons top">photo</i></a></li>
+      </ul>
+    </div>
+
+    <div id="busquedaSom">
+      <div id="inventario" class="input-field col s12">
+        <div class="col s12 card green lighten-5 valign-wrapper">
+          <a class="green btn col s5" href="javascript:altaOferta()"><i class="material-icons right">edit</i>Alta</a>
+          <div class="col s1"></div>
+          <div class="col s6">
+            <select id="tipoInv">
+              <option value="1">Compartido</option>
+              <option value="0">Propio</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="contenidoInventario" class="col s12"></div>
+      </div>
+
+      <!-- TAB EDITAR OFERTA -->
+      <div id="editar" class="resultado padding">
+
+        <div class="fixed-action-btn">
+          <a href="javascript:enviarOferta()" class="btn-floating btn-large green" style="margin-bottom: 40px">
+            <i class="large material-icons">backup</i>
+          </a>
+        </div>
+        <ul class="collapsible">
+          <li class="active">
+            <div class="collapsible-header green lighten-5"><i class="material-icons">home</i>Producto</div>
+            <div class="collapsible-body">
+              <div class="row">
+                <div class="input-field col s12">
+                  <select id="producto">
+                  </select>
+                  <label>Tipo de producto</label>
+                </div>
+
+                  <!-- Tipo de Subproducto -->
+                <div class="input-field col s12">
+                  <select id="subproducto">
+                  </select>
+                  <label>Subtipo de producto</label>
+                </div>
+
+                <div class="input-field col s6">
+                  <select id="operacion">
+                    <option value="0">Seleccionar</option>
+                    <option value="1">Venta</option>
+                    <option value="2">Alquiler</option>
+                  </select>
+                  <label>Operaci&oacute;n</label>
+                </div>
+
+                <div class="input-field col s6">
+                  <input type="text" id="precio" placeholder="">
+                  <label for="precio">Precio</label>
+                </div>
+
+                <div class="col s12">
+                  Código: <span id="codigo"></span>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="collapsible-header green lighten-5"><i class="material-icons">place</i>Ubicaci&oacute;n</div>
+            <div class="collapsible-body">
+              <div class="row">
+                <div class="input-field col s12">
+                  <select id="pais">
+                  </select>
+                  <label>Pais</label>
+                </div>
+
+                <div class="input-field col s12">
+                  <select id="provincia">
+                  </select>
+                  <label>Provincia</label>
+                </div>
+
+                <!-- Ubicación -->
+                <div class="input-field col s12">
+                  <input type="text" id="ubicacionBuscar" class="autocomplete" placeholder="">
+                  <label for="ubicacionBuscar">Ubicaci&oacute;n</label>
+                </div>
+
+                <div class="input-field col s9">
+                  <input type="text" id="calle" placeholder="">
+                  <label for="calle">Calle</label>
+                </div>
+
+                <div class="input-field col s3">
+                  <input type="text" id="altura" placeholder="">
+                  <label for="altura">Altura</label>
+                </div>
+
+                <div class="col s12 center-align">
+                  <h5><a href="javascript:georeferenciar()"><<< Ubicar en mapa <i class="material-icons">place</i> >>></a></h5>
+                </div>
+
+                <div class="col s12 right-align" id="mapaABM" style="display: none">
+                  <h6><a href="javascript:cerrarMapa()"><b>Cerrar</b></a></h6>
+                  <iframe class="" id="invMapa" src="" width="100%" height="400" frameborder="0" allowfullscreen=""></iframe>
+                  <input type="text" id="latitud" class="hide">
+                  <input type="text" id="longitud" class="hide">
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="collapsible-header green lighten-5"><i class="material-icons">public</i>Portales</div>
+            <div class="collapsible-body">
+              <div class="row">
+                <div class="col s12">
+                  <br>
+                  <label>
+                    <input type="checkbox" class="publicar filled-in" id="precioPortales" checked />
+                    <span>Mostrar precio en portales</span>
+                  </label>
+                  <br><br>
+                  <label>
+                    <input type="checkbox" class="publicar filled-in" id="publicarSom" checked />
+                    <span>Compartir en sistema interconectado.</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+  		</div>
+
+      <!-- TAB DE FICHA -->
+      <div id="archivos" class="padding">
+        <div class="fixed-action-btn">
+          <a class="btn-floating btn-large green" style="margin-bottom: 40px">
+            <i class="large material-icons">backup</i>
+          </a>
+        </div>
+        <div id="contenidoArchivos">
+           <ul class="collapsible">
+            <li class="active">
+              <div class="collapsible-header green lighten-5"><i class="material-icons">camera_alt</i>Fotos</div>
+              <div class="collapsible-body">
+                <div class="row">
+                  <div class="col s12 padding center-align subirArchivo">
+                    <span>Seleccione <b>las fotos</b> que desea cargar:&nbsp;</span><br>
+                    <input type="file" id="subirFotos" multiple="" onchange="cargarFotos()">
+                  </div>
+                  <div class="col s12 center-align" style="margin-top: 20px">
+                    <ul id="itemsFotos">
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="collapsible-header green lighten-5"><i class="material-icons">border_all</i>Planos</div>
+              <div class="collapsible-body">
+                <div class="row">
+                  <div class="col s12 padding center-align subirArchivo">
+                    <span>Seleccione <b>los planos</b> que desea cargar:&nbsp;</span><br>
+                    <input type="file" id="subirPlanos" multiple="" onchange="cargarPlanos()">
+                  </div>
+                  <div class="col s12 center-align" style="margin-top: 20px">
+                    <ul id="itemsPlanos">
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+  </div>
+
+  <div id="contacto" class="modal" style="width: 90%; max-height: 85%">
+      <div id="contenidoContacto" class="padding"></div>
+    <div class="modal-footer col s12">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat green">OK</a>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="js/materialize.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+    <script>
+        $('.list').draggable();
+    </script>
+</body>
+</html>

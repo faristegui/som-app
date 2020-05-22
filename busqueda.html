@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SOM - Servicio de Ofertas Múltiples</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="js/jquery.min.js"></script>
+  <script src="js/scripts.js"></script>
+  <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <script>
+    inicializar();
+  </script>
+</head>
+
+<body class="fondo">
+
+  <div class="row" style="margin-bottom: 60px">
+
+  <!-- Se puede sacar para app Android y iOS -->
+  <div class="navbar-fixed">
+    <nav class="green">
+      <div class="nav-wrapper">
+        <b style="font-size: 23px; margin-left: 15px;">SOM</b>
+        <ul class="right">
+          <li><a href="javascript:verBusqueda()"><i class="material-icons barra">search</i></a></li>
+          <li><a href="javascript:verInventario()"><i class="material-icons barra">home</i></a></li>
+          <li></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+    <div class="col s12 white appbar superior">
+      <ul class="tabs tabs-transparent">
+    	<li class="tab col s4"><a href="#busqueda" class="active"><i class="material-icons top">search</i></a></li>
+        <li class="tab col s4"><a href="#resultado"><i class="material-icons top">format_list_bulleted</i></a></li>
+        <li class="tab col s4"><a href="#ficha"><i class="material-icons top">home</i></a></li>
+      </ul>
+    </div>
+    
+    <div id="pedirToken" style="width: 100%; height: 100%" class="centrado padding hide">
+        <h3 class="red-text">¡Atenci&oacute;n!</h3>
+        <h5>Debe ingresar un Token v&aacute;lido para operar.</h5><br><br>
+        <p>Presione el bot&oacute;n <i class="material-icons">settings</i> e ingrese un Token.<br>Puede encontrar este <b>Token</b> en el sistema SOM, en la parte inferior de la pantalla principal.</p>
+    </div>
+
+    <!-- TAB DE BUSQUEDA -->
+    <!-- TAB DE BUSQUEDA -->
+    <!-- TAB DE BUSQUEDA -->
+    <div id="busquedaSom" class="">
+      <div id="busqueda" class="input-field col s12">
+
+      <!-- Tipo de producto -->
+      <div class="input-field col s12">
+		    <select id="producto">
+		    </select>
+		    <label>Tipo de producto</label>
+		  </div>
+
+        <!-- Tipo de Subproducto -->
+      <div class="input-field col s12">
+		    <select id="subproducto">
+		    </select>
+		    <label>Subtipo de producto</label>
+		  </div>
+
+      <div class="input-field col s12">
+        <select id="pais">
+        </select>
+        <label>Pais</label>
+      </div>
+
+      <div class="input-field col s12">
+        <select id="provincia">
+        </select>
+        <label>Provincia</label>
+      </div>
+
+        <!-- Ubicación -->
+      <div class="input-field col s12">
+        <input type="text" id="ubicacionBuscar" class="autocomplete">
+        <label for="ubicacionBuscar">Ubicaci&oacute;n</label>
+      </div>
+
+      <div class="input-field col s6">
+        <select id="operacion">
+        	<option value="">Seleccionar</option>
+        	<option value="1">Venta</option>
+        	<option value="2">Alquiler</option>
+        </select>
+        <label>Operaci&oacute;n</label>
+      </div>
+      <div class="col s12"></div>
+      <div class="col s6" style="margin-top: 10px">
+      	<p>
+	      <label>
+	        <input type="checkbox" id="soloMisOfertas" class="filled-in"/>
+	        <span>Solo mis ofertas</span>
+	      </label>
+	    </p>
+      </div>
+      <div class="col s12 margen">
+      	<!-- <a style='height: 40px' class="waves-effect waves-light btn green darken-4 margen col s12" onclick="mostrarResultados();"><i class="material-icons right">search</i>BUSCAR</a> -->
+      	<div class="fixed-action-btn" style="margin-bottom: 40px">
+		  <a class="btn-floating btn-large green" onclick="cargarBusqueda();">
+		    <i class="large material-icons">search</i>
+		  </a>
+		</div>
+      </div>
+      </div>
+
+    <!-- TAB DE RESULTADO -->
+    <div id="resultado" class="resultado padding">
+        <div id="itemsResultados" style="margin-bottom: 50px;"></div>
+        <div class="col s12 centrado"><a id="cargarMasResultados" class="hide" href="javascript:cargarMasResultados()"><h5>Más resultados</h5></a></div>
+        <div class="fixed-action-btn" style="margin-bottom: 40px">
+    	  <a href="#" data-target="slide-out" class="sidenav-trigger btn-floating btn-large green"><i class="material-icons">filter_list</i></a>
+		</div>
+
+		<ul id="slide-out" class="sidenav">
+		    <li><h6 class="centrado">Ordenar</h6></li>
+		    <li><div class="divider"></div></li>
+		    <li><a class="waves-effect sidenav-close" href="#!" onclick="ordenarResultados(1)"><i class='material-icons'>home</i>Por c&oacute;digo</a></li>
+		    <li><a class="waves-effect sidenav-close" href="#!" onclick="ordenarResultados(2)"><i class='material-icons'>place</i>Por direcci&oacute;n</a></li>
+		    <li><a class="waves-effect sidenav-close" href="#!" onclick="ordenarResultados(3)"><i class='material-icons'>arrow_upward</i>Menor Precio</a></li>
+		    <li><a class="waves-effect sidenav-close" href="#!" onclick="ordenarResultados(4)"><i class='material-icons'>arrow_downward</i>Mayor Precio</a></li>
+        <li class="padding row">
+          <div class="input-field col s9">
+            <input type="text" id="codigoBuscar" placeholder="">
+            <label for="codigoBuscar">Filtrar por código</label>
+          </div>
+          <a class="green btn col s2" onclick="cargarBusqueda()";><i class="material-icons">search</i></a>
+        </li>
+	    </ul>
+      
+    </div>
+
+    <!-- TAB DE FICHA -->
+    <div id="ficha" class="padding">
+      <div id="contenidoFicha" class="green lighten-5 card hide">
+        <div id="mostrarFicha"></div>
+        <div id="mapa" class="fullwidth padding"></div>
+        <div id="superficies" class="padding"></div>
+        <div id="atributos" class="padding"></div>
+        <div id="ambientes" class="padding"></div>
+        <div id="compartir" class="padding"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="contacto" class="modal" style="width: 90%; max-height: 85%">
+      <div id="contenidoContacto" class="padding"></div>
+    <div class="modal-footer col s12">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat green">OK</a>
+    </div>
+  </div>
+
+  <div id="escribirEmail" class="modal padding" style="width: 90%; max-height: 85%">
+    <h5 class='centrado'><i class='material-icons'>email</i>&nbsp;Enviar ficha por email</h5>
+    <br>
+    <div class="input-field col s12">
+      <input placeholder="" id="emailFicha" type="text" class="validate">
+      <label for="emailFicha">Email</label>
+    </div>
+    <div class="modal-footer col s12" id="btnEnviarFicha"></div>
+  </div>
+
+  <script type="text/javascript" src="js/materialize.min.js"></script>
+</body>
+</html>

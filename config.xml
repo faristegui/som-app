@@ -7,12 +7,21 @@
   <preference name="target-device" value="universal" />
   <preference name="permissions" value="none" />
   <preference name="fullscreen" value="false" />
+  <preference name="AutoHideSplashScreen" value="true" />
+  <preference name="SplashScreenDelay" value="3000" />
   <allow-intent name="href" value="http://*/*"></allow-intent>
   <allow-intent name="href" value="https://*/*"></allow-intent>
 
+  <platform name="android">
+      <splash src="images/splash.png" density="port-hdpi"/>
+      <splash src="images/splash.png" density="port-ldpi"/>
+      <splash src="images/splash.png" density="port-mdpi"/>
+      <splash src="images/splash.png" density="port-xhdpi"/>
+      <splash src="images/splash.png" density="port-xxhdpi"/>
+  </platform>
+
   <plugin name="cordova-plugin-device" spec="1.1.2" />
   <plugin name="cordova-plugin-whitelist" spec="1" />
-  <plugin name="org.apache.cordova.splashscreen" spec="0.1.0" source="pgb" />
 
   <allow-navigation name="href" value="*" />
 

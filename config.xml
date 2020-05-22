@@ -3,21 +3,21 @@
   <name>SOM</name>
   <description>Club de Inmobiliarias S.A.</description>
   <author email="som@som.com.ar" href="http://som.com.ar">Club de Inmobiliarias S.A.</author>
-  <preference name="permissions" value="none" />
   <preference name="orientation" value="portrait" />
   <preference name="target-device" value="universal" />
+  <preference name="permissions" value="none" />
   <preference name="fullscreen" value="false" />
+  <allow-intent name="href" value="http://*/*"></allow-intent>
+  <allow-intent name="href" value="https://*/*"></allow-intent>
 
-  <plugin name="cordova-plugin-inappbrowser" spec="1.3.0" />
   <plugin name="cordova-plugin-device" spec="1.1.2" />
   <plugin name="cordova-plugin-splashscreen" spec="3.2.2" />
+  <plugin name="cordova-plugin-whitelist" spec="1" />
+
+  <allow-navigation name="href" value="*" />
 
   <icon src="images/icon.png" />
   <splash src="images/splash.png" />
 
-
-  <allow-navigation href="http://*/*" />
-  <allow-intent href="https://*/*" />
-
-  <access origin="*" subdomains="true" />
+  <access origin="*" />
 </widget>

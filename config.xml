@@ -24,7 +24,5 @@
   <allow-navigation name="href" value="*" />
 
   <icon src="images/icon.png" />
-  <splash src="images/splash.png" />
-
   <access origin="*" />
 </widget>

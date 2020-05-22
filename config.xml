@@ -3,7 +3,7 @@
   <name>SOM</name>
   <description>Club de Inmobiliarias S.A.</description>
   <author email="som@som.com.ar" href="http://som.com.ar">Club de Inmobiliarias S.A.</author>
-  <preference name="phonegap-version" value="cli-9.0.0" />
+  <preference name="phonegap-version" value="cli-8.1.1" />
   <preference name="orientation" value="portrait" />
   <preference name="target-device" value="universal" />
   <preference name="permissions" value="none" />
@@ -14,8 +14,9 @@
 
   <plugin name="cordova-plugin-device" spec="1.1.2" />
   <plugin name="cordova-plugin-whitelist" spec="1" />
-
-  <splash src="res/screen/android/splash-port-xhdpi.png" />
+  <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+           id="cordova-plugin-splashscreen"
+      version="5.0.4-dev"></plugin>
 
   <allow-navigation name="href" value="*" />
 

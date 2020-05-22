@@ -18,4 +18,6 @@
 
   <allow-navigation href="http://*/*" />
   <allow-intent href="https://*/*" />
+
+  <access origin="*" subdomains="true" />
 </widget>

@@ -8,13 +8,13 @@
   <preference name="SplashScreenDelay" value="2000"/>
   <preference name="SplashScreen" value="splash" />
   <preference name="permissions" value="none" />
-  <preference name="fullscreen" value="false" />
+  <preference name="fullscreen" value="true" />
   <allow-intent name="href" value="http://*/*"></allow-intent>
   <allow-intent name="href" value="https://*/*"></allow-intent>
 
   <plugin name="cordova-plugin-device" spec="1.1.2" />
-  <plugin name="cordova-plugin-splashscreen" spec="3.2.2" />
   <plugin name="cordova-plugin-whitelist" spec="1" />
+  <plugin name="cordova-plugin-splashscreen" source="npm"/>
 
   <allow-navigation name="href" value="*" />
 

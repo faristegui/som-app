@@ -23,4 +23,5 @@
 
   <icon src="images/icon.png" />
   <access origin="*" />
+  <access origin="whatsapp:*" launch-external="yes" />
 </widget>

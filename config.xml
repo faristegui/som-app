@@ -5,21 +5,19 @@
   <author email="som@som.com.ar" href="http://som.com.ar">Club de Inmobiliarias S.A.</author>
   <preference name="orientation" value="portrait" />
   <preference name="target-device" value="universal" />
-  <preference name="SplashScreenDelay" value="2000"/>
-  <preference name="SplashScreen" value="splash" />
   <preference name="permissions" value="none" />
-  <preference name="fullscreen" value="true" />
+  <preference name="fullscreen" value="false" />
   <allow-intent name="href" value="http://*/*"></allow-intent>
   <allow-intent name="href" value="https://*/*"></allow-intent>
 
   <plugin name="cordova-plugin-device" spec="1.1.2" />
   <plugin name="cordova-plugin-whitelist" spec="1" />
-  <plugin name="cordova-plugin-splashscreen" source="npm"/>
+  <gap:plugin name="org.apache.cordova.core.splashscreen" />
 
   <allow-navigation name="href" value="*" />
 
   <icon src="images/icon.png" />
-  <splash src="images/splash.png" />
+  <gap:splash src="images/splash.png" gap:platform="android" />
 
   <access origin="*" />
 </widget>

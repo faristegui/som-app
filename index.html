@@ -10,7 +10,7 @@
       <meta charset="UTF-8">
       <script type="text/javascript">
 
-          if(localStorage.getItem("token") !== "" && localStorage.getItem("inmo") !== "")
+          if(localStorage.getItem("token") !== null && localStorage.getItem("inmo") !== null)
           {
             window.location.href = "busqueda.html?token=" + localStorage.getItem("token") + "&inmobiliaria=" + localStorage.getItem("inmo");
           }

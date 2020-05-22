@@ -2,8 +2,7 @@
 <widget id="com.som.com.ar" version="2.25" xmlns="http://www.w3.org/ns/widgets">
   <name>SOM</name>
   <description>Club de Inmobiliarias S.A.</description>
-  <author email="info@myapp.com" href="http://www.myapp.com">Amazing App Team</author>
-  <preference name="phonegap-version" value="cli-6.3.0" />
+  <author email="som@som.com.ar" href="http://som.com.ar">Club de Inmobiliarias S.A.</author>
   <preference name="permissions" value="none" />
   <preference name="orientation" value="portrait" />
   <preference name="target-device" value="universal" />

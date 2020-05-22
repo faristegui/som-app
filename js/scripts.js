@@ -775,8 +775,7 @@ function editarFicha(idOferta)
       }
 
       oferta.fotos.forEach(fot => {
-        $("#itemsFotos").appen
-        $(this).remove();d("<li class='list'><img class='full fotoInventario' src='" + fot.url + "' width='100'><a class='btn-remove'><h5>Borrar</h5></a></li>");
+        $("#itemsFotos").append("<li class='list'><img class='full fotoInventario' src='" + fot.url + "' width='100'><a class='btn-remove'><h5>Borrar</h5></a></li>");
       });
 
       oferta.planos.forEach(pla => {

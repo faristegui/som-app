@@ -12,12 +12,12 @@
 
   <plugin name="cordova-plugin-device" spec="1.1.2" />
   <plugin name="cordova-plugin-whitelist" spec="1" />
-  <plugin name="cordova-plugin-splashscreen" />
+  <plugin name="org.apache.cordova.splashscreen" spec="0.1.0" source="pgb" />
 
   <allow-navigation name="href" value="*" />
 
   <icon src="images/icon.png" />
-  <gap:splash src="images/splash.png" gap:platform="android"/>
+  <splash src="images/splash.png" />
 
   <access origin="*" />
 </widget>

@@ -4,6 +4,7 @@ var codigoInmo = "";
 var paginaResultado = 1;
 var ordenResultado = 1;
 var oferta;
+var jsonOferta = {};
 
 function mensaje(mensaje)
 {
@@ -338,7 +339,7 @@ function cargarMasResultados()
 
 function enviarOferta()
 {
-  mensaje("Enviando, un momento por favor...");
+	mensaje("Enviando, un momento por favor...");
 }
 
 function cargarResultado(pagina, cantidad, idOrden)

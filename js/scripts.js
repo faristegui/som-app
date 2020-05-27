@@ -4,7 +4,6 @@ var codigoInmo = "";
 var paginaResultado = 1;
 var ordenResultado = 1;
 var oferta;
-var jsonOferta = {};
 
 function mensaje(mensaje)
 {
@@ -339,7 +338,7 @@ function cargarMasResultados()
 
 function enviarOferta()
 {
-	mensaje("Enviando, un momento por favor...");
+  mensaje("Enviando, un momento por favor...");
 }
 
 function cargarResultado(pagina, cantidad, idOrden)
@@ -425,20 +424,6 @@ function cargarResultado(pagina, cantidad, idOrden)
               oferta.inmuebles.forEach(inmueble => {
 
                 var foto = "";
-                /*if(inmueble.Foto != "" && inmueble.Foto != null)
-                {
-                  foto = "<div class='fullwidth'><img class='fotolistado' src='" + inmueble.Foto.replace("chico", "grande") + "'></div>";
-                }
-                else
-                {
-                  foto = "<div class='fullwidth'><img class='fotolistado' src='images/noimage.jpg'></div>";
-                }
-
-                var item = "<div class='col s12 card padding green lighten-5 centrado' onclick='cargarFicha(" + inmueble.IdInmueble + ");'><br>"+ foto +
-                "<h5 class='blue-text'><b><i class='material-icons iconoresultado'>home</i></b>"+ inmueble.TipoPropiedad.replace(" <br>", ",") + "</h5>" +
-                "<span><b><i class='material-icons iconoresultado'>place</i>"+ inmueble.Domicilio + "</b></span><br><span>" + inmueble.Ubicacion.replace("CIUDAD AUTONOMA BUENOS AIRES", "C.A.B.A.") + "</span><br><br>" +
-                "<div class='card-action'><h5 class='red-text centrado'>" + inmueble.Precio + "</h5></div></div>";
-                ofertas = ofertas + item;*/
 
                 if(inmueble.Foto != "" && inmueble.Foto != null)
                 {
@@ -470,6 +455,21 @@ function cargarResultado(pagina, cantidad, idOrden)
       }
 
       request.send();
+}
+
+function setearDomicilios()
+{
+  if(oferta != null)
+  {
+    if(oferta.Provincia.Id == 11)
+    {
+      $("#domicilio").addClass("hide");
+    }
+    else
+    {
+      $("#domicilio").removeClass("hide");
+    }
+  }
 }
 
 function inicializar()
@@ -534,6 +534,10 @@ function cargarProductos()
     $('#producto').on('change', function()
     {
       cargarSubproductos();
+      if($('#producto').val() == 37)
+      {
+        $('#lblSup2').text("Hectareas");
+      }
     });
   }
   request.send();
@@ -650,10 +654,21 @@ function cargarInventario()
               vence = "red-text";
             }
 
+            var direccion = "";
+
+            if(oferta.Localidad != "")
+            {
+              direccion = oferta.Direccion + ", " + oferta.Localidad;
+            }
+            if(oferta.Barrio != "")
+            {
+              direccion = oferta.Direccion + ", " + oferta.Barrio;
+            }
+
             var item = 
             "    <tr class='itemlistado " + vence + "'>" +
             "       <td onclick='editarFicha(" + oferta.id + ");'><img src='" + foto + "' height='50'></td>" +
-            "       <td onclick='editarFicha(" + oferta.id + ");'>" + oferta.Codigo + " | " + oferta.Producto + "<br>" + oferta.Direccion + "<br>" + oferta.Operacion + " "
+            "       <td onclick='editarFicha(" + oferta.id + ");'>" + oferta.Codigo + " | " + oferta.Producto + "<br>" + direccion + "<br>" + oferta.Operacion + " "
             + oferta.Moneda + " " + oferta.Importe +
             "</td></tr>";
             ofertas = ofertas + item;
@@ -666,7 +681,6 @@ function cargarInventario()
       }
       $('.tooltipped').tooltip();
       document.getElementById('contenidoInventario').innerHTML = "<table width='100%' class='listado' id='tablaInventario'>" + ofertas + "</table>";
-      $("#menuInventario").removeClass("hide");
     }
     
     request.send();
@@ -719,12 +733,55 @@ function editarFicha(idOferta)
 
       $('#altura').val(oferta.altura);
 
+      $('#piso').val(oferta.piso);
+
+      $('#departamento').val(oferta.departamento);
+
+      $('#ruta').val(oferta.ruta);
+      $('#km').val(oferta.km);
+      $('#referencia').val(oferta.referencia);
+
+      $('#destacable').val(oferta.informacionDestacable);
+      M.updateTextFields();
+      M.textareaAutoResize($('#destacable'));
+
       $('#operacion').val(parseInt(oferta.Operacion.Id));
       $('#invMoneda').val(parseInt(oferta.Moneda.Id));
 
       $('#pais').val(parseInt(oferta.Pais.Id));
 
       inicializarProvincias(oferta.Pais.Id);
+
+      // Superficies
+      $('#txtSup1').addClass("hide");
+      $('#txtSup2').addClass("hide");
+      $('#lblSup1').text("");
+      $('#lblSup2').text("");
+      var count = 1;
+      for (key in oferta.superficies) {
+        if(count <= 2)
+        {
+          if (oferta.superficies.hasOwnProperty(key)) {
+            $('#txtSup' + count).removeClass("hide");
+            var sup = key.replace("Superficie","Sup.");
+            sup = sup.replace("cubierta", "cub.");
+            $('#lblSup' + count).text(sup);
+            $('#txtSup' + count).val(oferta.superficies[key]);
+            count += 1;
+          }
+        }
+      }
+      if(count == 1)
+      {
+        $('#txtSup1').removeClass("hide");
+        $('#txtSup2').removeClass("hide");
+        $('#lblSup1').text("Sup. cubierta");
+        $('#lblSup2').text("Sup. total");
+        if($('#producto').val() == 37)
+        {
+          $('#lblSup2').text("Hectareas");
+        }
+      }
 
       setTimeout(function(){
         $('#provincia').val(parseInt(oferta.Provincia.Id));
@@ -777,12 +834,14 @@ function editarFicha(idOferta)
       }
 
       oferta.fotos.forEach(fot => {
-        $("#itemsFotos").append("<li class='list'><img class='full fotoInventario' src='" + fot.url + "' width='100'><a class='btn-remove'><h5>Borrar</h5></a></li>");
+        $("#itemsFotos").append("<li class='list'><img class='full fotoInventario' src='" + fot.url + "' width='100'><a class='btn-remove btn red'>X</a></li>");
       });
 
       oferta.planos.forEach(pla => {
-        $("#itemsPlanos").append("<li class='list'><img class='full planoInventario' src='" + pla.url + "' width='100'><a class='btn-remove'><h5>Borrar</h5></a></li>");
+        $("#itemsPlanos").append("<li class='list'><img class='full planoInventario' src='" + pla.url + "' width='100'><a class='btn-remove btn red'>X</a></li>");
       });
+
+      setearDomicilios();
     }
     request.send();
 }
@@ -884,7 +943,7 @@ function cargarFotos() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var json = JSON.parse(xhr.responseText);
             for (var j = 0; j < json.urls.length; j++) {
-              $("#itemsFotos").append("<li class='list'><img class='full fotoInventario' src='" + json.urls[j] + "' width='100'><a class='btn-remove'><h5>Borrar</h5></a></li>");
+              $("#itemsFotos").append("<li class='list'><img class='full fotoInventario' src='" + json.urls[j] + "' width='100'><a class='btn-remove'>Borrar</a></li>");
             }
         }
     };
@@ -944,6 +1003,9 @@ function cargarPlanos() {
 function altaOferta()
 {
   limpiarFormulario();
+  inicializarPaises();
+  inicializarProvincias(1);
+  $("#domicilio").removeClass("hide");
   $(".tabs").tabs("select", "editar");
 }
 
@@ -954,11 +1016,16 @@ function limpiarFormulario() {
   $('.select').val(0);
   $('#destacable').val('');
   $('#precio').val('');
-  //$('#operacion').val(1);
   $('#calle').val('');
   $('#altura').val('');
+  $('#supTotal').val('');
+  $('#supCubierta').val('');
+  $('#txtSup1').removeClass("hide");
+  $('#txtSup2').removeClass("hide");
+  $('#lblSup1').text("Sup. cubierta");
+  $('#lblSup2').text("Sup. total");
   inicializarPaises();
-  //$('#fechaVencimiento').val(fechaActual(1));
+  $("#destacable").height(50);
   document.getElementById('itemsFotos').innerHTML = "";
   document.getElementById('itemsPlanos').innerHTML = "";
   $('#invMapa').attr('src', '');

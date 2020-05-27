@@ -42,7 +42,7 @@
 
     <div id="busquedaSom">
       <div id="inventario" class="input-field col s12">
-        <div id="menuInventario" class="col s12 card green lighten-5 valign-wrapper hide">
+        <div class="col s12 card green lighten-5 valign-wrapper">
           <a class="green btn col s5" href="javascript:altaOferta()"><i class="material-icons right">edit</i>Alta</a>
           <div class="col s1"></div>
           <div class="col s6">
@@ -96,6 +96,21 @@
                   <label for="precio">Precio</label>
                 </div>
 
+                <div class="input-field col s6">
+                  <input type="text" id="txtSup1" placeholder="">
+                  <label for="txtSup1"><span id="lblSup1">Sup. cubierta</span></label>
+                </div>
+
+                <div class="input-field col s6">
+                  <input type="text" id="txtSup2" placeholder="">
+                  <label for="txtSup2"><span id="lblSup2">Sup. total</label>
+                </div>
+
+                <div class="input-field col s12">
+                  <textarea id="destacable" class="materialize-textarea" placeholder=""></textarea>
+                  <label for="destacable">Información destacable</label>
+                </div>
+
                 <div class="col s12">
                   Código: <span id="codigo"></span>
                 </div>
@@ -120,7 +135,7 @@
 
                 <!-- Ubicación -->
                 <div class="input-field col s12">
-                  <input type="text" id="ubicacionBuscar" class="autocomplete" placeholder="">
+                  <input type="text" id="ubicacionBuscar" onfocus="this.value=''" class="autocomplete" placeholder="">
                   <label for="ubicacionBuscar">Ubicaci&oacute;n</label>
                 </div>
 
@@ -132,6 +147,33 @@
                 <div class="input-field col s3">
                   <input type="text" id="altura" placeholder="">
                   <label for="altura">Altura</label>
+                </div>
+
+                <div class="input-field col s9">
+                  <input type="text" id="piso" placeholder="">
+                  <label for="piso">Piso</label>
+                </div>
+
+                <div class="input-field col s3">
+                  <input type="text" id="departamento" placeholder="">
+                  <label for="departamento">Depto.</label>
+                </div>
+
+                <div id="domicilio">
+                  <div class="input-field col s9">
+                    <input type="text" id="ruta" placeholder="">
+                    <label for="ruta">Ruta</label>
+                  </div>
+
+                  <div class="input-field col s3">
+                    <input type="text" id="km" placeholder="">
+                    <label for="km">KM</label>
+                  </div>
+
+                  <div class="input-field col s12">
+                    <input type="text" id="referencia" placeholder="">
+                    <label for="referencia">Referencia</label>
+                  </div>
                 </div>
 
                 <div class="col s12 center-align">
@@ -187,7 +229,7 @@
                     <span>Seleccione <b>las fotos</b> que desea cargar:&nbsp;</span><br>
                     <input type="file" id="subirFotos" multiple="" onchange="cargarFotos()">
                   </div>
-                  <div class="col s12 center-align" style="margin-top: 20px">
+                  <div class="col s12 center-align" style="margin-top: 20px; padding: 0 !important">
                     <ul id="itemsFotos">
                     </ul>
                   </div>

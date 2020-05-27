@@ -118,7 +118,12 @@ body
  
 .btn-remove
 {
-  z-index: 1000;
+  font-size: 25px !important;
+  font-weight: bold;
+  float: right;
+  position: relative;
+  left: 30px;
+  top: -15px;
 }
 
 #itemsFotos .ui-selected,  #itemsPlanos .ui-selected {
@@ -134,11 +139,11 @@ body
  
 #itemsFotos li, #itemsPlanos li {
     float: left;
-    margin: 3px;
-    padding: 3px;
-    width: 45%;
-    margin-left: 3%;
-    height: 155px;
+    padding: 5px;
+    width: 40%;
+    margin-right: 10%;
+	height: 110px;
+  	margin-bottom: 50px;
     line-height: 0px;
 }
 

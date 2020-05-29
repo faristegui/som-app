@@ -476,18 +476,31 @@ function cargarResultado(pagina, cantidad, idOrden)
       request.send();
 }
 
-function setearDomicilios()
+function setearDomicilios(cambioProv)
 {
-  if(oferta != null)
+
+  var id = 0;
+
+  if(cambioProv)
   {
-    if(oferta.Provincia.Id == 11)
+    id = $('#provincia').val();
+    $('#ubicacionBuscar').val('')
+  }
+  else
+  {
+    if(oferta != null)
     {
-      $("#domicilio").addClass("hide");
+      id = oferta.Provincia.Id;
     }
-    else
-    {
-      $("#domicilio").removeClass("hide");
-    }
+  }
+
+  if(id == 11)
+  {
+    $("#domicilio").addClass("hide");
+  }
+  else
+  {
+    $("#domicilio").removeClass("hide");
   }
 }
 
@@ -868,7 +881,7 @@ function editarFicha(idOferta)
         $("#itemsPlanos").append("<li class='list'><img class='full planoInventario' src='" + pla.url + "' width='100'><a class='btn-remove btn red'>X</a></li>");
       });
 
-      setearDomicilios();
+      setearDomicilios(false);
     }
     request.send();
 }
@@ -1151,8 +1164,9 @@ function inicializarProvincias(idPais)
 
         $('#provincia').formSelect();
         $('#provincia').on('change', function() {
-        inicializarUbicaciones(idPais, this.value);
-      });
+          setearDomicilios(true);
+          inicializarUbicaciones(idPais, this.value);
+        });
     }
     
     request.send();

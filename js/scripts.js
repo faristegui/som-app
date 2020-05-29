@@ -208,7 +208,9 @@ function verContacto(idContacto)
         if(data['TelefonosConTipo'][i].Tipo == "WhatsApp")
         {
           var tel = data['TelefonosConTipo'][i].CodigoPais + " " + data['TelefonosConTipo'][i].CodigoArea + " " + data['TelefonosConTipo'][i].Numero;
-          contenido += "<br><br><a class='btn green fullwidth whatsapp' style='text-align: right; width:140px' href='whatsapp://send?abid=" + tel + "&text=Contacto por la ficha " + oferta.codigo +
+          //contenido += "<br><br><a target='_blank' class='btn green botones whatsapp' style='text-align: right; width:140px' href='https://api.whatsapp.com/send?phone=" + tel + "&text=Contacto por la ficha " + oferta.codigo + "'>Contactar</a>";
+          var tel = data['TelefonosConTipo'][i].CodigoPais + " " + data['TelefonosConTipo'][i].CodigoArea + " " + data['TelefonosConTipo'][i].Numero;
+          contenido += "<br><br><a class='btn green fullwidth whatsapp' style='text-align: right; width:140px' href='whatsapp://send?phone=" + tel + "&text=Contacto por la ficha " + oferta.codigo +
           "' data-action='share/whatsapp/share'>Contactar</a>";
           break;
         }

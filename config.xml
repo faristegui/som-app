@@ -12,7 +12,6 @@
   <preference name="SplashScreenDelay" value="5000" />
   <allow-intent name="href" value="http://*/*"></allow-intent>
   <allow-intent name="href" value="https://*/*"></allow-intent>
-  <allow-intent name="href" value="tel:*"></allow-intent>
 
   <plugin name="cordova-plugin-device" spec="1.1.2" />
   <plugin name="cordova-plugin-splashscreen" spec="5.0.3" />
@@ -25,4 +24,5 @@
   <icon src="images/icon.png" />
   <access origin="*" />
   <access origin="whatsapp:*" launch-external="yes" />
+  <access origin="tel:*" launch-external="yes" />
 </widget>

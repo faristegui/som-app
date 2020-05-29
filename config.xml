@@ -25,4 +25,5 @@
   <access origin="*" />
   <access origin="whatsapp:*" launch-external="yes" />
   <access origin="tel:*" launch-external="yes" />
+  <access origin="mailto:*" launch-external="yes" />
 </widget>

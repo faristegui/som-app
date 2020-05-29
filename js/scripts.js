@@ -186,8 +186,8 @@ function verContacto(idContacto)
         mensaje("Ha ocurrido un error. Intente nuevamente.");
       }
 
-      contenido = contenido + "<div class='col s12 centrado'><br>C&oacute;digo: <b>" + data['Inmobiliaria'].Codigo + data['Inmobiliaria'].Sucursal + "</b><h6><b>";
-      contenido = contenido + data['Inmobiliaria'].Nombre + "</b></h6></div><div class='col s12 centrado'>";
+      //contenido = contenido + "<div class='col s12 centrado'><br>C&oacute;digo: <b>" + data['Inmobiliaria'].Codigo + data['Inmobiliaria'].Sucursal + "</b><h6><b>";
+      contenido = contenido + "<div class='col s12 centrado'><b>" + data['Inmobiliaria'].Nombre + "</b></h6></div><div class='col s12 centrado'>";
 
       if(data['Inmobiliaria'].HorarioAtencion != null && data['Inmobiliaria'].HorarioAtencion != "")
 		  {
@@ -201,8 +201,17 @@ function verContacto(idContacto)
 
       if(data['Telefonos'].length > 0)
 		  {
-			  contenido = contenido + "<br><br>Tel&eacute;fono: " + data['Telefonos'][0] + "<br><br><a href='tel:" + data['Telefonos'][0] + "' class='btn green'><i class='material-icons right'>phone</i>llamar</a>";
+			  contenido = contenido + "<br><br>Tel&eacute;fono: " + data['Telefonos'][0] + "<br><br><a href='tel:" + data['Telefonos'][0] + "' class='btn blue' style='width:140px'><i class='material-icons right'>phone</i>llamar</a>";
 	    }
+
+      for (var i = 0; i < data['TelefonosConTipo'].length; i++) {
+        if(data['TelefonosConTipo'][i].Tipo == "WhatsApp")
+        {
+          var tel = data['TelefonosConTipo'][i].CodigoPais + " " + data['TelefonosConTipo'][i].CodigoArea + " " + data['TelefonosConTipo'][i].Numero;
+          contenido += "<br><br><a target='_blank' class='btn green botones whatsapp' style='text-align: right; width:140px' href='https://api.whatsapp.com/send?phone=" + tel + "&text=Contacto por la ficha " + oferta.codigo + "'>Contactar</a>";
+          break;
+        }
+      }
 
 	    if(data['Emails'].length > 0)
 		  {

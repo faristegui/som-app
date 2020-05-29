@@ -92,6 +92,11 @@
         <label>Operaci&oacute;n</label>
       </div>
       <div class="col s12"></div>
+      <div class="input-field col s6">
+        <input type="text" id="codigoBuscar" placeholder="">
+        <label for="codigoBuscar">Filtrar por código</label>
+      </div>
+      <div class="col s12"></div>
       <div class="col s6" style="margin-top: 10px">
       	<p>
 	      <label>
@@ -102,7 +107,7 @@
       </div>
       <div class="col s12 margen">
       	<!-- <a style='height: 40px' class="waves-effect waves-light btn green darken-4 margen col s12" onclick="mostrarResultados();"><i class="material-icons right">search</i>BUSCAR</a> -->
-      	<div class="fixed-action-btn" style="margin-bottom: 40px">
+    	<div class="fixed-action-btn" style="margin-bottom: 40px">
 		  <a class="btn-floating btn-large green" onclick="cargarBusqueda();">
 		    <i class="large material-icons">search</i>
 		  </a>
@@ -125,13 +130,6 @@
 		    <li><a class="waves-effect sidenav-close" href="#!" onclick="ordenarResultados(2)"><i class='material-icons'>place</i>Por direcci&oacute;n</a></li>
 		    <li><a class="waves-effect sidenav-close" href="#!" onclick="ordenarResultados(3)"><i class='material-icons'>arrow_upward</i>Menor Precio</a></li>
 		    <li><a class="waves-effect sidenav-close" href="#!" onclick="ordenarResultados(4)"><i class='material-icons'>arrow_downward</i>Mayor Precio</a></li>
-        <li class="padding row">
-          <div class="input-field col s9">
-            <input type="text" id="codigoBuscar" placeholder="">
-            <label for="codigoBuscar">Filtrar por código</label>
-          </div>
-          <a class="green btn col s2" onclick="cargarBusqueda()";><i class="material-icons">search</i></a>
-        </li>
 	    </ul>
       
     </div>

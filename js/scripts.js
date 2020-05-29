@@ -31,20 +31,28 @@ function cargarFicha(idOferta)
 
     document.getElementById('emailFicha').value = "";
 
-    request.open('GET', 'http://sgi.som.com.ar/api/movil/inmueble.php?IdInmueble=' + idOferta + "&token=" + token, true);
+    var url = 'http://sgi.som.com.ar/api/movil/inmueble.php?IdInmueble=' + idOferta + "&token=" + token;
+    var cod = $('#codigoBuscar').val();
+    if(cod != "")
+    {
+      cod = cod.replace(/\s/g, '')
+      url = 'http://sgi.som.com.ar/api/movil/inmueble.php?codigo=' + cod + "&token=" + token;
+    }
+
+    request.open('GET', url, true);
     request.onload = function() {
       var data = JSON.parse(this.response);
 
-      if (request.status >= 200 && request.status < 400) {
-        data.forEach(ofer => {
-
-          oferta = ofer;
-          $("#contenidoFicha").removeClass("hide");
-
-        });
-      } else {
-        console.log('error');
+      if (request.status < 200){
+        mensaje("Ha ocurrido un error. Intente nuevamente.");
       }
+
+      data.forEach(ofer => {
+
+        oferta = ofer;
+        $("#contenidoFicha").removeClass("hide");
+
+      });
 
       $(document).ready(function(){
 
@@ -174,7 +182,9 @@ function verContacto(idContacto)
     request.onload = function() {
   	var data = JSON.parse(this.response);
 
-      if (request.status >= 200 && request.readyState == 4) {
+      if (request.status < 200) {
+        mensaje("Ha ocurrido un error. Intente nuevamente.");
+      }
 
       contenido = contenido + "<div class='col s12 centrado'><br>C&oacute;digo: <b>" + data['Inmobiliaria'].Codigo + data['Inmobiliaria'].Sucursal + "</b><h6><b>";
       contenido = contenido + data['Inmobiliaria'].Nombre + "</b></h6></div><div class='col s12 centrado'>";
@@ -191,7 +201,7 @@ function verContacto(idContacto)
 
       if(data['Telefonos'].length > 0)
 		  {
-			  contenido = contenido + "<br><br>Tel&eacute;fono: " + data['Telefonos'][0];
+			  contenido = contenido + "<br><br>Tel&eacute;fono: " + data['Telefonos'][0] + "<br><br><a href='tel:" + data['Telefonos'][0] + "' class='btn green'><i class='material-icons right'>phone</i>llamar</a>";
 	    }
 
 	    if(data['Emails'].length > 0)
@@ -199,9 +209,8 @@ function verContacto(idContacto)
 			  contenido = contenido + "<br><br>Email: <a href='mailto:" + data['Emails'][0] + "'>" + data['Emails'][0] + "</a>";
 	    }
 
-        contenido = contenido + "</div>";
-      
-      }
+      contenido = contenido + "</div>";
+
       $("#contenidoContacto").append(contenido);
     }
     
@@ -324,9 +333,19 @@ function armarUbicacion(oferta)
 
 function cargarBusqueda()
 {
-  paginaResultado = 1;
-  cargarResultado(paginaResultado,15,ordenResultado);
-  $("#cargarMasResultados").removeClass("hide");
+  var cod = $('#codigoBuscar').val();
+
+  if(cod != "")
+  {
+    cargarFicha(0);
+    $('#codigoBuscar').val('');    
+  }
+  else
+  {
+    paginaResultado = 1;
+    cargarResultado(paginaResultado,15,ordenResultado);
+    $("#cargarMasResultados").removeClass("hide");
+  }
 }
 
 function cargarMasResultados()
@@ -410,7 +429,9 @@ function cargarResultado(pagina, cantidad, idOrden)
       request.onload = function() {
       var data = JSON.parse(this.response);
 
-        if (request.status >= 200 && request.status < 400) {
+        if (request.status < 200) {
+          mensaje("Ha ocurrido un error. Intente nuevamente.");
+        }
 
           data.forEach(oferta => {
 
@@ -446,9 +467,7 @@ function cargarResultado(pagina, cantidad, idOrden)
             }
 
           });
-        } else {
-          console.log('error');
-        }
+
           //document.getElementById('itemsResultados').innerHTML = ofertas;
         $('#itemsResultados').append(ofertas);
         $(".tabs").tabs("select", "resultado");
@@ -521,14 +540,16 @@ function cargarProductos()
   request.onload = function() {
   var data = JSON.parse(this.response);
 
-    if (request.status >= 200 && request.readyState == 4) {
+    if (request.status < 200) {
+      mensaje("Ha ocurrido un error. Intente nuevamente.");
+    }
+
       data[0].TipoProducto.forEach(producto => {
         $.each(data, function(){ 
           Options = Options + "<option value='" + producto.ID + "'>" + producto.Nombre + "</option>";
       });
     });
       $('#producto').append(Options);
-    }
 
     $('#producto').formSelect();
     $('#producto').on('change', function()
@@ -566,14 +587,16 @@ function cargarSubproductos()
     request.onload = function() {
     var data = JSON.parse(this.response);
 
-      if (request.status >= 200 && request.readyState == 4) {
-        data[0].SubtipoProducto.forEach(producto => {
-          $.each(data, function(){ 
+    if (request.status < 200) {
+      mensaje("Ha ocurrido un error. Intente nuevamente.");
+    }
+
+      data[0].SubtipoProducto.forEach(producto => {
+        $.each(data, function(){ 
             Options = Options + "<option value='" + producto.ID + "'>" + producto.Nombre + "</option>";
         });
       });
-        $('#subproducto').append(Options);
-      }
+      $('#subproducto').append(Options);
 
       $('#subproducto').formSelect();
     }
@@ -592,12 +615,14 @@ function inicializarPaises()
     request.onload = function() {
       var data = JSON.parse(this.response);
 
-    if (request.status >= 200 && request.readyState == 4) {
-          data.Paises.forEach(pais => {
+      if (request.status < 200) {
+        mensaje("Ha ocurrido un error. Intente nuevamente.");
+      }
+
+        data.Paises.forEach(pais => {
             Options = Options + "<option value='" + pais.ID + "'>" + pais.Nombre + "</option>";
         });
-          $('#pais').append(Options);
-        }
+        $('#pais').append(Options);
 
         $('#pais').formSelect();
         $('#pais').on('change', function() {
@@ -631,54 +656,56 @@ function cargarInventario()
   request.onload = function() {
     var data = JSON.parse(this.response);
 
-      if (request.status >= 200 && request.readyState == 4) {
-
-        if(!data["Error"])
-        {
-          data[0].forEach(oferta => {
-            
-            var foto = "images/noimage80.jpg";
-
-            if(oferta.Foto !== "")
-            {
-              foto = oferta.Foto;
-            }
-
-            var vence = "";
-            if(oferta.Vencimiento.includes("Vencida"))
-            {
-              vence = "grey-text";
-            }
-            if(oferta.Vencimiento.includes("vencer"))
-            {
-              vence = "red-text";
-            }
-
-            var direccion = "";
-
-            if(oferta.Localidad != "")
-            {
-              direccion = oferta.Direccion + ", " + oferta.Localidad;
-            }
-            if(oferta.Barrio != "")
-            {
-              direccion = oferta.Direccion + ", " + oferta.Barrio;
-            }
-
-            var item = 
-            "    <tr class='itemlistado " + vence + "'>" +
-            "       <td onclick='editarFicha(" + oferta.id + ");'><img src='" + foto + "' height='50'></td>" +
-            "       <td onclick='editarFicha(" + oferta.id + ");'>" + oferta.Codigo + " | " + oferta.Producto + "<br>" + direccion + "<br>" + oferta.Operacion + " "
-            + oferta.Moneda + " " + oferta.Importe +
-            "</td></tr>";
-            ofertas = ofertas + item;
-          });
-        }
-        else
-        {
-          mensaje(data["Error"]);
-        }
+      if (request.status < 200) {
+        mensaje("Ha ocurrido un error. Intente nuevamente.");
       }
+
+      if(!data["Error"])
+      {
+        data[0].forEach(oferta => {
+          
+          var foto = "images/noimage80.jpg";
+
+          if(oferta.Foto !== "")
+          {
+            foto = oferta.Foto;
+          }
+
+          var vence = "";
+          if(oferta.Vencimiento.includes("Vencida"))
+          {
+            vence = "grey-text";
+          }
+          if(oferta.Vencimiento.includes("vencer"))
+          {
+            vence = "red-text";
+          }
+
+          var direccion = "";
+
+          if(oferta.Localidad != "")
+          {
+            direccion = oferta.Direccion + ", " + oferta.Localidad;
+          }
+          if(oferta.Barrio != "")
+          {
+            direccion = oferta.Direccion + ", " + oferta.Barrio;
+          }
+
+          var item = 
+          "    <tr class='itemlistado " + vence + "'>" +
+          "       <td onclick='editarFicha(" + oferta.id + ");'><img src='" + foto + "' height='50'></td>" +
+          "       <td onclick='editarFicha(" + oferta.id + ");'>" + oferta.Codigo + " | " + oferta.Producto + "<br>" + direccion + "<br>" + oferta.Operacion + " "
+          + oferta.Moneda + " " + oferta.Importe +
+          "</td></tr>";
+          ofertas = ofertas + item;
+        });
+      }
+      else
+      {
+        mensaje(data["Error"]);
+      }
+
       $('.tooltipped').tooltip();
       document.getElementById('contenidoInventario').innerHTML = "<table width='100%' class='listado' id='tablaInventario'>" + ofertas + "</table>";
     }
@@ -1068,22 +1095,24 @@ function georeferenciar()
     request.onload = function() {
     var data = JSON.parse(this.response);
 
-      if (request.status >= 200 && request.readyState == 4) {
-        if(data.results.length > 0)
-        {
-          var lat = parseFloat(data.results[data.results.length -1].geometry.location.lat);
-          var long = parseFloat(data.results[data.results.length -1].geometry.location.lng);
+    if (request.status < 200) {
+      mensaje("Ha ocurrido un error. Intente nuevamente.");
+    }
+    
+      if(data.results.length > 0)
+      {
+        var lat = parseFloat(data.results[data.results.length -1].geometry.location.lat);
+        var long = parseFloat(data.results[data.results.length -1].geometry.location.lng);
 
-          $('#latitud').val(lat);
-          $('#longitud').val(long);
+        $('#latitud').val(lat);
+        $('#longitud').val(long);
 
-          ubicarMapa(lat,long);
-        }
-        else
-        {
-          cerrarMapa();
-          mensaje('No se ha podido ubicar en el mapa...');
-        }
+        ubicarMapa(lat,long);
+      }
+      else
+      {
+        cerrarMapa();
+        mensaje('No se ha podido ubicar en el mapa...');
       }
     }
     
@@ -1111,12 +1140,14 @@ function inicializarProvincias(idPais)
     request.onload = function() {
       var data = JSON.parse(this.response);
 
-    if (request.status >= 200 && request.readyState == 4) {
-          data.Provincias.forEach(prov => {
+      if (request.status < 200) {
+        mensaje("Ha ocurrido un error. Intente nuevamente.");
+      }
+
+        data.Provincias.forEach(prov => {
             Options = Options + "<option value='" + prov.ID + "'>" + prov.Nombre + "</option>";
         });
-          $('#provincia').append(Options);
-        }
+        $('#provincia').append(Options);
 
         $('#provincia').formSelect();
         $('#provincia').on('change', function() {
@@ -1138,12 +1169,14 @@ function inicializarUbicaciones(idPais, idProvincia)
 
     var dataUbicaciones = {};
 
-    if (request.status >= 200 && request.readyState == 4) {
-      data.forEach(ubi => {
-        dataUbicaciones[ubi.nombre] = null;
-        ubicaciones.push({nombre: ubi.nombre, parametro: ubi.parametro, id: ubi.id});
-      });
+    if (request.status < 200) {
+      mensaje("Ha ocurrido un error. Intente nuevamente.");
     }
+
+    data.forEach(ubi => {
+      dataUbicaciones[ubi.nombre] = null;
+      ubicaciones.push({nombre: ubi.nombre, parametro: ubi.parametro, id: ubi.id});
+    });
 
     $('#ubicacionBuscar').autocomplete({
       data: dataUbicaciones,

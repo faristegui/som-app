@@ -1,6 +1,11 @@
-if(performance.navigation.type == 2)
+window.addEventListener('popstate', botonCerrar());
+
+function botonCerrar()
 {
-  onBackKeyDown();
+  if(performance.navigation.type == 2)
+  {
+    onBackKeyDown();
+  }
 }
 
 function onBackKeyDown(e) {

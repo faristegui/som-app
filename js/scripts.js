@@ -1,7 +1,10 @@
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
-    document.addEventListener("backbutton", onBackKeyDown, false);
+    if(performance.navigation.type == 2)
+    {
+      onBackKeyDown();
+    }
 }
 
 function onBackKeyDown(e) {

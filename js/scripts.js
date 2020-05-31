@@ -1,3 +1,22 @@
+if (performance.navigation.type == 2) {
+  var r = confirm("¿Desea salir?");
+  if (r == true) {
+    cerrarApp(); 
+  }
+}
+
+function cerrarApp()
+{
+  alert(77);
+  if (navigator.app) {
+      navigator.app.exitApp();
+  } else if (navigator.device) {
+      navigator.device.exitApp();
+  } else {
+      window.close();
+  }
+}
+
 var ubicaciones = [];
 var token = "";
 var codigoInmo = "";

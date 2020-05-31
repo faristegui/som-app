@@ -1,27 +1,3 @@
-window.addEventListener('popstate', botonCerrar());
-
-function botonCerrar()
-{
-  if(performance.navigation.type == 2)
-  {
-    onBackKeyDown();
-  }
-}
-
-function onBackKeyDown(e) {
-    e.preventDefault();
-    navigator.notification.confirm("¿Desea salir?", onConfirm, "Salir", "Si,No"); 
-}
-
-function onConfirm(button) {
-    if(button==2){
-        return;
-    }else{
-        navigator.app.exitApp();
-        window.close();
-    }
-}
-
 var ubicaciones = [];
 var token = "";
 var codigoInmo = "";

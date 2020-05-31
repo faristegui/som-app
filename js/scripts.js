@@ -1,20 +1,21 @@
-if (performance.navigation.type == 2) {
-  var r = confirm("¿Desea salir?");
-  if (r == true) {
-    cerrarApp(); 
-  }
+document.addEventListener("deviceready", onDeviceReady, false);
+
+function onDeviceReady() {
+    document.addEventListener("backbutton", onBackKeyDown, false);
 }
 
-function cerrarApp()
-{
-  alert(77);
-  if (navigator.app) {
-      navigator.app.exitApp();
-  } else if (navigator.device) {
-      navigator.device.exitApp();
-  } else {
-      window.close();
-  }
+function onBackKeyDown(e) {
+    e.preventDefault();
+    navigator.notification.confirm("¿Desea salir?", onConfirm, "Salir", "Si,No"); 
+}
+
+function onConfirm(button) {
+    if(button==2){
+        return;
+    }else{
+        navigator.app.exitApp();
+        window.close();
+    }
 }
 
 var ubicaciones = [];

@@ -369,7 +369,7 @@ function cargarMasResultados()
 
 function enviarOferta()
 {
-  mensaje("Enviando, un momento por favor...");
+  mensaje("Grabando, un momento por favor...");
 }
 
 function cargarResultado(pagina, cantidad, idOrden)

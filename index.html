@@ -12,7 +12,10 @@
 
         function cerrar()
         {
-          navigator.app.exitApp();
+          if (cordova && cordova.plugins)
+          {
+              cordova.plugins.exit();
+          }
         }
 
         function iniciar()

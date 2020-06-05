@@ -3,7 +3,7 @@
   <name>SOM</name>
   <description>Club de Inmobiliarias S.A.</description>
   <author email="som@som.com.ar" href="http://som.com.ar">Club de Inmobiliarias S.A.</author>
-  <preference name="phonegap-version" value="cli-8.1.1" />
+  <preference name="phonegap-version" value="cli-9.0.0" />
   <preference name="orientation" value="portrait" />
   <preference name="target-device" value="universal" />
   <preference name="permissions" value="none" />

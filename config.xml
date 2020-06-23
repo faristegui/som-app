@@ -12,6 +12,7 @@
   <preference name="SplashScreenDelay" value="5000" />
   <allow-intent name="href" value="http://*/*"></allow-intent>
   <allow-intent name="href" value="https://*/*"></allow-intent>
+  <preference name="android-targetSdkVersion" value="28" />
 
   <plugin name="cordova-plugin-device" spec="1.1.2" />
   <plugin name="cordova-plugin-splashscreen" spec="5.0.3" />

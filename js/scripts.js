@@ -995,7 +995,7 @@ function cargarFotos() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var json = JSON.parse(xhr.responseText);
             for (var j = 0; j < json.urls.length; j++) {
-              $("#itemsFotos").append("<li class='list'><img class='full fotoInventario' src='" + json.urls[j] + "' width='100'><a class='btn-remove'>Borrar</a></li>");
+              $("#itemsFotos").append("<li class='list'><img class='full fotoInventario' src='" + json.urls[j] + "' width='100'><a class='btn-remove btn red'>X</a></li>");
             }
         }
     };

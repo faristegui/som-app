@@ -733,6 +733,7 @@ function cargarInventario()
 
       $('.tooltipped').tooltip();
       document.getElementById('contenidoInventario').innerHTML = "<table width='100%' class='listado' id='tablaInventario'>" + ofertas + "</table>";
+      $('#inventarioSom').removeClass("hide");
     }
     
     request.send();

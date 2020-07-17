@@ -71,7 +71,7 @@ function cargarFicha(idOferta)
 
         contenido += "<h5 class='red-text centrado'>" + oferta.Operacion.Nombre + ": " + oferta.Moneda.Nombre + " " + oferta.importe + "</h5>";
 
-        contenido += "<h5 class='centrado green-text'>Estado: " + oferta.EstadoOferta.Nombre + "</h5>";
+        contenido += "<h5 class='centrado blue-grey-text'>Estado: " + oferta.EstadoOferta.Nombre + "</h5>";
 
         contenido += "<h5 class='centrado'><i class='material-icons iconoresultado'>place</i>" + armarDireccion(oferta) + "</h5>";
 
@@ -88,7 +88,7 @@ function cargarFicha(idOferta)
         for (key in oferta.atributos) {
           if (oferta.atributos.hasOwnProperty(key)) {
               
-          atribs = atribs + "<li><i class='material-icons green-text iconos-atributos'>keyboard_arrow_right</i>" + key + ": " + oferta.atributos[key] + "</li>";
+          atribs = atribs + "<li><i class='material-icons blue-grey-text iconos-atributos'>keyboard_arrow_right</i>" + key + ": " + oferta.atributos[key] + "</li>";
           }
       }
       if(Object.keys(oferta.atributos).length > 0)
@@ -99,7 +99,7 @@ function cargarFicha(idOferta)
       for (key in oferta.superficies) {
           if (oferta.superficies.hasOwnProperty(key)) {
               
-          sups = sups + "<li><i class='material-icons green-text iconos-atributos'>keyboard_arrow_right</i>" + key + ": " + oferta.superficies[key] + "</li>";
+          sups = sups + "<li><i class='material-icons blue-grey-text iconos-atributos'>keyboard_arrow_right</i>" + key + ": " + oferta.superficies[key] + "</li>";
           }
       }
       if(Object.keys(oferta.superficies).length > 0)
@@ -110,7 +110,7 @@ function cargarFicha(idOferta)
       for (key in oferta.ambientes) {
           if (oferta.ambientes.hasOwnProperty(key)) {
               
-          ambs = ambs + "<li><i class='material-icons green-text iconos-atributos'>keyboard_arrow_right</i>" + key + ": " + oferta.ambientes[key] + "</li>";
+          ambs = ambs + "<li><i class='material-icons blue-grey-text iconos-atributos'>keyboard_arrow_right</i>" + key + ": " + oferta.ambientes[key] + "</li>";
           }
       }
       if(Object.keys(oferta.ambientes).length > 0)
@@ -123,12 +123,12 @@ function cargarFicha(idOferta)
 
       var url = "http%3A//sgi.som.com.ar/som/verficha.html?" + inmo + "-" + suc + "-" + oferta.codigo;
 
-      var contacto = "<a class='btn green fullwidth whatsapp' href='whatsapp://send?text=" + url +
+      var contacto = "<a class='btn blue-grey fullwidth whatsapp' href='whatsapp://send?text=" + url +
           "' data-action='share/whatsapp/share'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Compartir</a>" +
           "<a class='blue btn fullwidth share modal-trigger' href='#escribirEmail'><i class='material-icons left'>mail</i>Email</a>" +
           "<a class='btn red fullwidth share' href='javascript:verContacto(" + oferta.IdSucursal + ")'><i class='material-icons left'>person</i>Contacto</a>";
 
-      document.getElementById('btnEnviarFicha').innerHTML = "<a class='col s12 btn green' href='javascript:enviarFicha(" + idOferta + ")'><i class='material-icons right'>send</i>Enviar</a>";
+      document.getElementById('btnEnviarFicha').innerHTML = "<a class='col s12 btn blue-grey' href='javascript:enviarFicha(" + idOferta + ")'><i class='material-icons right'>send</i>Enviar</a>";
 
       document.getElementById('compartir').innerHTML = contacto;
 
@@ -208,9 +208,9 @@ function verContacto(idContacto)
         if(data['TelefonosConTipo'][i].Tipo == "WhatsApp")
         {
           var tel = data['TelefonosConTipo'][i].CodigoPais + " " + data['TelefonosConTipo'][i].CodigoArea + " " + data['TelefonosConTipo'][i].Numero;
-          //contenido += "<br><br><a target='_blank' class='btn green botones whatsapp' style='text-align: right; width:140px' href='https://api.whatsapp.com/send?phone=" + tel + "&text=Contacto por la ficha " + oferta.codigo + "'>Contactar</a>";
+          //contenido += "<br><br><a target='_blank' class='btn blue-grey botones whatsapp' style='text-align: right; width:140px' href='https://api.whatsapp.com/send?phone=" + tel + "&text=Contacto por la ficha " + oferta.codigo + "'>Contactar</a>";
           var tel = data['TelefonosConTipo'][i].CodigoPais + " " + data['TelefonosConTipo'][i].CodigoArea + " " + data['TelefonosConTipo'][i].Numero;
-          contenido += "<br><br><a class='btn green fullwidth whatsapp' style='text-align: right; width:140px' href='whatsapp://send?phone=" + tel + "&text=Contacto por la ficha " + oferta.codigo +
+          contenido += "<br><br><a class='btn blue-grey fullwidth whatsapp' style='text-align: right; width:140px' href='whatsapp://send?phone=" + tel + "&text=Contacto por la ficha " + oferta.codigo +
           "' data-action='share/whatsapp/share'>Contactar</a>";
           break;
         }
@@ -743,9 +743,9 @@ function cargarInventario()
 function editarFicha(idOferta)
 {
   $('#tablaInventario tr').click(function(e) {
-      $('#tablaInventario tr').removeClass('green');
+      $('#tablaInventario tr').removeClass('blue-grey');
       $('#tablaInventario tr').removeClass('lighten-4');
-      $(this).toggleClass('green');
+      $(this).toggleClass('blue-grey');
       $(this).toggleClass('lighten-4');
   });
 

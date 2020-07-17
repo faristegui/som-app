@@ -519,35 +519,36 @@ function setearDomicilios(cambioProv)
 function inicializar()
 {
     setTimeout(function() {
+      $(document).ready(function(){
+        $('.tabs').tabs();
+        $('select').formSelect();
+        $('.modal').modal();
+        $('.sidenav').sidenav();
+        $('.collapsible').collapsible();
+      });
 
-    $(document).ready(function(){
-      $('.tabs').tabs();
-      $('select').formSelect();
-      $('.modal').modal();
-      $('.sidenav').sidenav();
-      $('.collapsible').collapsible();
-    });
+      $('#ubicacionBuscar').val('');
 
-    $('#ubicacionBuscar').val('');
+      token = obtenerParametros('token');
+      codigoInmo = obtenerParametros('inmobiliaria');
 
-    token = obtenerParametros('token');
-    codigoInmo = obtenerParametros('inmobiliaria');
+      if(!token)
+      {
+        mensaje("No se ha ingresado un Token. Es necesario para operar.");
+      }
 
-    if(!token)
-    {
-      mensaje("No se ha ingresado un Token. Es necesario para operar.");
-    }
+      cargarProductos();
+      cargarSubproductos();
+      inicializarPaises();
+      inicializarProvincias(1);
 
-    cargarProductos();
-    cargarSubproductos();
-    inicializarPaises();
-    inicializarProvincias(1);
+      $('#tipoInv').on('change', function() {
+        cargarInventario();
+      });
 
-    $('#tipoInv').on('change', function() {
-      cargarInventario();
-    });
+      $('#busquedaSom').removeClass('hide');
 
-  }, 100);
+    }, 200);
 }
 
 function cargarProductos()

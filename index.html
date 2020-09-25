@@ -1,94 +1,15 @@
-  <!DOCTYPE html>
-  <html>
-    <head>
-      <link href="css/icon.css" rel="stylesheet">
-      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-      <script src="js/jquery.min.js"></script>
-      <script src="js/core.js"></script>
-      <script src="js/md5.js"></script>
-      <meta charset="UTF-8">
-      <script type="text/javascript">
+<html>
+	<script type="text/javascript">
+		var token = localStorage.getItem('token');
+        var inmo = localStorage.getItem('inmobiliaria');
 
-        function iniciar()
+        if(token !== null && inmo !== null)
         {
-          var status = navigator.onLine;
-          if (!status) {
-              alert('Es necesario conectarse a internet para continuar. Revise su conexión y reintente.');
-              window.close();
-          } else {
-            var token = localStorage.getItem('token');
-            var inmo = localStorage.getItem('inmobiliaria');
-
-            if(token !== null && inmo !== null)
-            {
-              window.location.href = "busqueda.html?token=" + token + "&inmobiliaria=" + inmo;
-            }
-          }
+          	window.location.href = "busqueda.html?token=" + token + "&inmobiliaria=" + inmo;
         }
-
-        function iniciarSesion()
+        else
         {
-          var token = $('#token').val();
-
-          var request = new XMLHttpRequest();
-
-          url = 'http://sgi.som.com.ar/api/login.php?token=' + token;
-
-          request.open('GET', url, true);
-
-          request.onload = function() {
-
-            var data = JSON.parse(this.response);
-
-            if (request.status >= 200 && request.readyState == 4) {
-              data.forEach(login => {
-                if(login.Status)
-                {
-                  localStorage.setItem('token', login.TokenMovil);
-                  localStorage.setItem('inmobiliaria', login.CodigoInmobiliaria + login.CodigoSucursal);
-                  window.location.href = "busqueda.html?token=" + login.TokenMovil + "&inmobiliaria=" + login.CodigoInmobiliaria + login.CodigoSucursal;
-                }
-                else
-                {
-                  M.toast({html: 'Los datos ingresados no son correctos.'});                  
-                }
-              });
-            }
-          }
-
-          request.send();
+        	window.location.href = "login.html";
         }
-      </script>
-    </head>
-
-    <body class="fondo" onload="javascript:iniciar()">
-
-      <div class="row">
-        <div class="col s12 center-align">
-
-            <img src="images/logo.png" class="responsive-img" style="margin-top: 40px; margin-bottom: 50px">
-            
-            <!-- <div class="input-field col s12">
-              <input type="text" id="usuario" placeholder="">
-              <label for="usuario">Usuario</label>
-            </div>
-            
-            <div class="input-field col s12">
-              <input type="password" id="password" placeholder="">
-              <label for="password">Contraseña</label>
-            </div> -->
-           
-            <div class="input-field col s12">
-              <input type="text" id="token" placeholder="">
-              <label for="token">Ingrese su Token</label>
-            </div>
-
-            <br>
-            <a href="javascript:iniciarSesion();" class="margin btn blue-grey"><i class="material-icons right">forward</i>Ingresar</a>
-        </div>
-      </div>
-
-      <script type="text/javascript" src="js/materialize.min.js"></script>
-    </body>
-  </html>
+	</script>
+</html>

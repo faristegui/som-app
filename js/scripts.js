@@ -1,4 +1,4 @@
-var ubicaciones = [];
+﻿var ubicaciones = [];
 var token = "";
 var codigoInmo = "";
 var paginaResultado = 1;
@@ -122,9 +122,8 @@ function cargarFicha(idOferta)
       var suc = codigoInmo.substr(3, 2);
 
       var url = "http%3A//sgi.som.com.ar/som/verficha.html?" + inmo + "-" + suc + "-" + oferta.codigo;
-
-      var contacto = "<a class='btn blue-grey fullwidth whatsapp' href='whatsapp://send?text=" + url +
-          "' data-action='share/whatsapp/share'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Compartir</a>" +
+      var contacto = "<a class='btn blue-grey fullwidth whatsapp' href='whatsapp://send?text=" + url + "' data-action='share/whatsapp/share'>" +
+	"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Compartir</a>" +
           "<a class='blue btn fullwidth share modal-trigger' href='#escribirEmail'><i class='material-icons left'>mail</i>Email</a>" +
           "<a class='btn red fullwidth share' href='javascript:verContacto(" + oferta.IdSucursal + ")'><i class='material-icons left'>person</i>Contacto</a>";
 

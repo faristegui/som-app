@@ -23,6 +23,7 @@ function obtenerParametros(variable)
 
 function cargarFicha(idOferta)
 {
+    document.documentElement.scrollTop = 0;
     mensaje('Cargando...');
 
     var contenido = "";
